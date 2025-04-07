@@ -11,14 +11,15 @@ from config import Config
 
 # sys.path.insert(1,'/home/blanx/Documents/codes/dookan-assignment/backend')
 
-def create_user(username, password):
+def create_user(username, email, password):
     try:
-        user = list(users_collection.find({'user_name':username}))
+        user = list(users_collection.find({'user_email':email}))
         if not (len(user)) == 0:
             return False, 'User Already Exists'
         entered_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         result = users_collection.insert_one({
             'user_name':username,
+            'user_email':email,
             'password':entered_pwd
         })
         print(result)
@@ -26,17 +27,19 @@ def create_user(username, password):
     except Exception as e:
         return False, str(e)
 
-def validate_user(username, password):
-    print('Entered user authentication')
-    user = list(users_collection.find({'user_name':username}))
+def validate_user(email, password):
+    print(f'Entered user authentication for email: {email}')
+    user = list(users_collection.find({'user_email':email}))
     if not (len(user) == 1):
-        print('More than one username found')
-        return False, 'Multiple Usernames associated' if len(user) > 1 else 'No Users found' 
+        print(f'Use Counts are {len(user)}')
+        # print('More than one username found')
+        return (False, 'Multiple Usernames associated', None, None) if len(user) > 1 else (False, 'No Users found', None, None)
     hashed_pwd = user[0]['password']
     entered_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-    print(f'the entered password is: {entered_pwd}')
+    print(f'the entered password is: {password}')
     login_status = bcrypt.checkpw(password.encode(),hashed_pwd)
-    return login_status, 'Successful Login', str(user[0].get('_id'))
+    login_message = "Successful Login" if login_status else "Invalid Credentials"
+    return login_status, login_message, str(user[0].get('_id')) ,str(user[0].get('user_name'))
 
 
 def generate_session_token(username,user_id):

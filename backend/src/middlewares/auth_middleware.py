@@ -22,7 +22,7 @@ def check_session(func):
             return jsonify({'message': 'Authorization Failed'}), 401
         
         if not check_session_pg(session_token):
-            return jsonify({'message': 'This Session has already logged out'}), 401
+            return jsonify({'message': "This Session doesn't exist anymore. Please Login Again"}), 401
 
         try:
             # Decode the token
@@ -56,3 +56,4 @@ def check_session_pg(session_token):
 
 def get_current_user():
     return getattr(g, 'user_id', None)
+

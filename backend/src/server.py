@@ -11,8 +11,11 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
     
-    # Initialize extensions
-    CORS(app)
+    # # Initialize extensions
+    CORS(app, 
+         origins="http://localhost:3000", 
+         supports_credentials=True,
+         expose_headers=["Authorization", "Content-Type"])
     
     # Setting up blueprints for routing
     register_routes(app)

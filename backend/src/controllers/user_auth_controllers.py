@@ -15,24 +15,30 @@ def serialize_datetime(obj):
 class UserAuthController:
     def add_user(self):
         data = request.get_json()
-        username = data.get('user_name')
+        username = data.get('username')
         password = data.get('password')
-        status, result = create_user(username, password)
-        return jsonify({'status':status,'username':username,'mesasge':result})
+        email = data.get('email').lower()
+        status, result = create_user(username, email, password)
+        return jsonify({'status':status,'username':username,'message':result}), 200 if status else 500
 
     def check_user_credentials(self):
         data = request.get_json()
-        username = data.get('user_name')
+        email = data.get('email').lower()
         password = data.get('password')
-        login_status, login_message, user_id = validate_user(username,password)
+        login_status, login_message, user_id, user_name = validate_user(email ,password)
         if not login_status:
-            return jsonify({'status':False, 'username':username, "session_token":'Session Invalid'}), 404
-        session_token = generate_session_token(username, user_id)
-        resp = make_response(jsonify({'status':True, 'username':username}), 200)
+            return jsonify({'status':False, 'email':email, "message":login_message}), 401
+        session_token = generate_session_token(email, user_id)
+        resp = make_response(jsonify({'status':True, 'email':email, 'userId':user_id, 'userName':user_name}), 200)
         # Setting up Bearer token to retain session_token and user_id
         resp.headers['Authorization'] = f"Bearer {session_token.get('token')}" 
         return resp
     
+    @check_session
+    def verify_user_session(self):
+        return jsonify({'message':'Valid Session'}),200
+
+
     @check_session
     def logout(self):
         user_id = get_current_user()
