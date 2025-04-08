@@ -4,7 +4,33 @@ from bson import ObjectId
 
 def get_all_products():
     print('Entered Get all products')
-    products = list(products_collection.find({}))
+    pipeline = [
+        {
+            "$match":
+            {
+                "Title": {
+                "$exists": True
+                }
+            }
+        },
+        {
+            "$project":
+            {
+                "_id": {
+                "$toString": "$_id"
+                },
+                "Handle": "$Handle",
+                "Title": "$Title",
+                "Vendor": "$Vendor",
+                "Tags": "$Tags",
+                "SKU": "$SKU",
+                "Shop location": "$Shop location",
+                "Variant Price": "$Variant Price",
+                "Image Src": "$Image Src"
+            }
+        }
+        ]
+    products = list(products_collection.aggregate(pipeline))
     for product in products:
         product['_id'] = str(product['_id'])
     return products

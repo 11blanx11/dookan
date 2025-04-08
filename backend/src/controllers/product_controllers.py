@@ -10,7 +10,7 @@ class ProductController:
         products = get_all_products()
         if not products:
             return jsonify({"error": "Products not found"}), 404
-        return jsonify(products), 200
+        return jsonify({"status":True, "data":products}), 200
 
     @check_session
     def get_one(self, product_id):
