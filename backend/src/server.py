@@ -10,14 +10,14 @@ from config import Config
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    
+
     # # Initialize extensions
     CORS(app,
         origins="http://localhost:3000",
-        methods=["GET", "POST", "OPTIONS"], 
+        methods=["GET", "POST", "OPTIONS", "DELETE"],
         supports_credentials=True,
-        expose_headers=["Authorization", "Content-Type"])
-    
+        expose_headers=["Authorization", "Content-Type"] )
+
     # Setting up blueprints for routing
     register_routes(app)
     return app
