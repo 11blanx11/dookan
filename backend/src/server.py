@@ -13,10 +13,11 @@ def create_app(config_class=Config):
 
     # # Initialize extensions
     CORS(app,
-        origins="http://localhost:3000",
-        methods=["GET", "POST", "OPTIONS", "DELETE"],
+        origins=["http://localhost:3000"],
+        methods=["GET", "POST", "PUT", "OPTIONS", "DELETE"],
         supports_credentials=True,
-        expose_headers=["Authorization", "Content-Type"] )
+        expose_headers=["Authorization", "Content-Type"],
+        allow_headers=["Authorization", "Content-Type"])
 
     # Setting up blueprints for routing
     register_routes(app)

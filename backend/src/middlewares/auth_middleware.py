@@ -8,6 +8,8 @@ from database_functions.pg_setup import get_db_connection
 def check_session(func):
     @wraps(func)
     def decorator(*args, **kwargs):
+        if request.method == 'OPTIONS':
+            return func(*args, **kwargs)
         session_token = None
         # Check if token exists in the request headers
         if 'Authorization' in request.headers:
