@@ -33,7 +33,7 @@ def validate_user(email, password):
     if not (len(user) == 1):
         print(f'Use Counts are {len(user)}')
         # print('More than one username found')
-        return (False, 'Multiple Usernames associated', None, None) if len(user) > 1 else (False, 'No Users found', None, None)
+        return (False, 'Multiple Usernames associated', None, None) if len(user) > 1 else (False, 'User Not Found', None, None)
     hashed_pwd = user[0]['password']
     entered_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     print(f'the entered password is: {password}')

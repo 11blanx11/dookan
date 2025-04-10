@@ -59,6 +59,9 @@ This will initialize and build the PostgreSQL container as defined in the docker
 
 ```bash
 python -m venv venv
+# OR
+python3 -m venv venv
+
 # On macOS/Linux
 source venv/bin/activate
 ```
