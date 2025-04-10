@@ -31,7 +31,8 @@ def get_all_products():
             }
         }
         ]
-    products = list(products_collection.aggregate(pipeline))
+    # products = list(products_collection.aggregate(pipeline))
+    products = list(products_collection.find({}))
     for product in products:
         product['_id'] = str(product['_id'])
     return products
@@ -52,7 +53,7 @@ def create_product(product_data):
             {"Handle":product_data.get("Handle")},
             {"Variant SKU":product_data.get("Variant SKU")}]
             }))
-        if not len(products) == 0 : 
+        if not len(products) == 0 :
             # Product Already Exists
             return False, 'Product Already Exists'
         if "_id" in product_data:
@@ -61,7 +62,6 @@ def create_product(product_data):
         return True,str(result.inserted_id)
     except Exception as e:
         return False, str(e)
-    
 
 def update_product(product_id, product_data):
     try:
@@ -70,24 +70,24 @@ def update_product(product_id, product_data):
             "Handle": product_data.get("Handle"),
             "Variant SKU": {"$ne": product_data.get("Variant SKU")}
         })
-        
+
         if duplicate_check:
             return False, 'Cannot Change to an Existing Product'
-        
+
         # Remove _id from product_data if it exists
         if "_id" in product_data:
             product_data.pop("_id")
-            
+
         # Update the product
         result = products_collection.update_one(
             {"_id": ObjectId(product_id)},
             {"$set": product_data}
         )
-        
+
         success = result.modified_count > 0
         message = "Product updated successfully" if success else "No changes made"
         return True, message
-        
+
     except Exception as e:
         print('Raised Exception')
         return False, f"Error updating product: {str(e)}"
@@ -98,7 +98,7 @@ def delete_product(product_id):
         return True, result.deleted_count
     except Exception as e:
         return False, str(e)
-    
+
 
 def log_into_pg(user_id, product_id, state):
     state = state.upper();
