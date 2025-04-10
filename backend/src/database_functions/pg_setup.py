@@ -11,14 +11,12 @@ load_dotenv()
 
 # Database configuration
 DB_CONFIG = {
-    'dbname': os.getenv('PG_DOOKAN_DATABASE'),
+    'dbname': os.getenv('PG_DATABASE'),
     'user': os.getenv('PG_USER'),
     'password': os.getenv('PG_PASSWORD'),
     'host': os.getenv('PG_HOST'),
     'port': os.getenv('PG_PORT')
 }
-
-print(f'DB_CONFIG: {str(DB_CONFIG)}')
 
 @contextmanager # so that I can use with get_db_connectio similar to with connection as conn
 def get_db_connection():

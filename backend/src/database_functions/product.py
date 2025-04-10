@@ -106,7 +106,7 @@ def log_into_pg(user_id, product_id, state):
         with get_db_connection() as conn:
             with conn.cursor() as cur:
                 query = f"""
-                INSERT INTO user_event_logs (user_id, product_id, event_status) VALUES ('{user_id}','{product_id}','{state}');
+                INSERT INTO identifier_events (user_id, product_id, event_type) VALUES ('{user_id}','{product_id}','{state}');
                 """
                 print(f'state update Query: {query}')
                 cur.execute(query)

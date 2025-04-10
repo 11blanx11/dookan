@@ -39,8 +39,8 @@ A full stack e-commerce application built with React frontend and Python Flask b
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/11blanx11/dookan-assignment.git
-cd dookan-assignment
+git clone https://github.com/11blanx11/dookan.git
+cd dookan
 ```
 
 ### Setup PostgreSQL with Docker
