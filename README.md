@@ -2,6 +2,24 @@
 
 A full stack e-commerce application built with React frontend and Python Flask backend.
 
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+  - [Clone the Repository](#clone-the-repository)
+  - [Environment Setup](#environment-setup)
+  - [Setup PostgreSQL with Docker](#setup-postgresql-with-docker)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [Getting Started](#getting-started)
+  - [Initial User Setup](#initial-user-setup)
+  - [Product Management](#product-management)
+- [Database Structure](#database-structure)
+  - [MongoDB Collections](#mongodb-collections)
+  - [PostgreSQL Tables](#postgresql-tables)
+- [License](#license)
+
 ## Features
 
 - User authentication (login/signup)
@@ -41,6 +59,24 @@ A full stack e-commerce application built with React frontend and Python Flask b
 ```bash
 git clone https://github.com/11blanx11/dookan.git
 cd dookan
+```
+
+### Environment Setup
+
+Create a `.env` file in the parent directory based on the `.env.template` file:
+
+```bash
+# Copy the template file
+cp .env.template .env
+
+# Edit the .env file with your environment-specific values
+# For example:
+# MONGO_URI=mongodb://localhost:27017
+# POSTGRES_HOST=localhost
+# POSTGRES_PORT=5432
+# POSTGRES_USER=defaultuser
+# POSTGRES_PASSWORD=defaultpassword
+# POSTGRES_DB=dookan
 ```
 
 ### Setup PostgreSQL with Docker
