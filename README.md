@@ -6,7 +6,8 @@ A full stack e-commerce application built with React frontend and Python Flask b
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Prerequisites](#prerequisites)
-- [Installation & Setup](#installation--setup)
+- [Quick Installation](#quick-installation)
+- [Manual Installation & Setup](#manual-installation--setup)
   - [Clone the Repository](#clone-the-repository)
   - [Environment Setup](#environment-setup)
   - [Setup PostgreSQL with Docker](#setup-postgresql-with-docker)
@@ -52,7 +53,36 @@ A full stack e-commerce application built with React frontend and Python Flask b
 - Docker and Docker Compose
 - MongoDB (local cluster)
 
-## Installation & Setup
+## Quick Installation
+
+For a faster setup, you can use the installation script:
+
+```bash
+# Download the installation script
+curl -O https://raw.githubusercontent.com/11blanx11/dookan/main/install-dookan.sh
+
+# Make it executable
+chmod +x install-dookan.sh
+
+# Run the script
+./install-dookan.sh
+```
+
+The script will automatically:
+1. Clone the repository
+2. Set up the environment file
+3. Start PostgreSQL using Docker
+4. Create and configure the Python virtual environment
+5. Install backend dependencies
+6. Install frontend dependencies
+
+After the script completes, you'll need to:
+1. Review and edit the `.env` file with your specific database connection details
+2. Start the backend and frontend servers as indicated in the script output
+
+## Manual Installation & Setup
+
+If you prefer to install manually or the script doesn't work for your environment, follow these steps:
 
 ### Clone the Repository
 
